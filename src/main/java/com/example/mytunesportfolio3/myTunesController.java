@@ -16,7 +16,7 @@ public class myTunesController {
     private TextField filterSearch;
 
     @FXML
-    private TableColumn<?, ?> nameKolonne;
+    private TableColumn<Playlist, String> nameKolonne;
 
     @FXML
     private Label playingSong;
@@ -28,13 +28,13 @@ public class myTunesController {
     private ImageView songCover;
 
     @FXML
-    private TableColumn<?, ?> songsKolonne;
+    private TableColumn<Playlist, ?> songsKolonne;
 
     @FXML
     private ListView<?> songsOnPlaylist;
 
     @FXML
-    private TableColumn<?, ?> timeKolonne;
+    private TableColumn<Playlist, String> timeKolonne;
 
     @FXML //Lav som ny klasse + dialog
     void alleSange(ActionEvent event) {
