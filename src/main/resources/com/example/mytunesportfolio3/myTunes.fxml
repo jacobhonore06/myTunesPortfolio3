@@ -24,7 +24,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="40.0" top="29.0" />
+                        <Insets right="65.0" top="29.0" />
                      </HBox.margin>
                   </Label>
                   <Label text="Filter:">
@@ -82,7 +82,7 @@
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="80.0" top="29.0" />
+                        <Insets right="75.0" top="29.0" />
                      </HBox.margin>
                   </Label>
                   <Button mnemonicParsing="false" onAction="#alleSange" text="Alle sange">
