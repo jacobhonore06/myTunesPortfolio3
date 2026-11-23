@@ -25,9 +25,6 @@ public class myTunesController {
     private TableView<?> playlists;
 
     @FXML
-    private Button searchIcon;
-
-    @FXML
     private ImageView songCover;
 
     @FXML
@@ -39,52 +36,57 @@ public class myTunesController {
     @FXML
     private TableColumn<?, ?> timeKolonne;
 
-    @FXML
+    @FXML //Lav som ny klasse + dialog
     void alleSange(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav i controller
     void deletePlaylist(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav i controller
     void deleteSong(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav som ny klasse (PlaylistKnap) m. newPlaylist + dialog
     void editPlaylist(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav i samme klasse som editPlaylist + dialog
     void newPlaylist(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav i controller?
     void nextSong(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav i controller?
     void playSong(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav i controller?
     void songBack(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //Lav i controller
+    void searchIcon (ActionEvent event){
+
+    }
+
+    @FXML //lav i controller
     void songDown(ActionEvent event) {
 
     }
 
-    @FXML
+    @FXML //lav i controller
     void songUp(ActionEvent event) {
 
     }
