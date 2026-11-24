@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -71,13 +72,28 @@ public class myTunesController {
 
     @FXML //Lav i controller
     void deletePlaylist(ActionEvent event) {
-        try {
-            observablePlaylist.remove(playlists.getSelectionModel().getSelectedIndex());
-        }
-        catch (IndexOutOfBoundsException e) {
-            System.out.println("listen er tom");
-        }
+        delete();
     }
+    public void delete() {
+        Dialog<ButtonType> deletePlaylistDialog = new Dialog<>();
+        deletePlaylistDialog.setTitle("Are you sure, you want to delete?");
+        deletePlaylistDialog.setHeaderText("Delete?");
+        deletePlaylistDialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+
+        Button deletePlaylisten = new Button("Delete");
+        deletePlaylisten.setOnAction(event -> {
+            try {
+                observablePlaylist.remove(playlists.getSelectionModel().getSelectedIndex());
+            }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println("listen er tom");
+            }
+        });
+
+        deletePlaylistDialog.getDialogPane().setContent(new VBox(10, deletePlaylisten));
+        deletePlaylistDialog.show();
+    }
+
 
     @FXML //Lav i controller
     void deleteSong(ActionEvent event) {
