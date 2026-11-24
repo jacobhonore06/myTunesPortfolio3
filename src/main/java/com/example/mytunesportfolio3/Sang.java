@@ -29,8 +29,8 @@ public class Sang {
         this.songArtist = sa;
     }
 
-    public int getSongDuration () {
-        return songDuration;
+    public String getSongDuration () {
+        return String.valueOf(songDuration);
     }
     public void setSongDuration (int sd) {
         this.songDuration = sd;

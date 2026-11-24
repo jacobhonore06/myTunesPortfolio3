@@ -17,6 +17,7 @@ public class Playlist {
     public ArrayList<Sang> getSange () {
         return sange;
     }
+    public void tilføjSange(Sang sang) {sange.add(sang);}
 
     public String getName () {
         return name;
@@ -25,15 +26,15 @@ public class Playlist {
         this.name = n;
     }
 
-    public int getSongs () {
-        return songs;
+    public String getSongs () {
+        return String.valueOf(songs);
     }
     public void setSongs (int s) {
         this.songs = s;
     }
 
-    public int getTime () {
-        return time;
+    public String getTime () {
+        return String.valueOf(time);
     }
     public void setTime (int t) {
         this.time = t;

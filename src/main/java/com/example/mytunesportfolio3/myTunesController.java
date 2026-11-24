@@ -5,7 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -16,34 +18,47 @@ public class myTunesController {
     private TextField filterSearch;
 
     @FXML
-    private TableColumn<Playlist, String> nameKolonne;
-
-    @FXML
     private Label playingSong;
 
     @FXML
     private TableView<Playlist> playlists;
-    private ObservableList<Playlist> observablePlaylist = FXCollections.observableArrayList();
+
+    @FXML
+    private TableColumn<Playlist, String> nameKolonne;
+
+    @FXML
+    private TableColumn<Playlist, String> songsKolonne;
+
+    @FXML
+    private TableColumn<Playlist, String> timeKolonne;
 
     @FXML
     private ImageView songCover;
 
     @FXML
-    private TableColumn<Playlist, ?> songsKolonne;
-
-    @FXML
     private TableView<Playlist> songsOnPlaylist;
 
     @FXML
-    private TableColumn<?, ?> numberKolonne;
+    private TableColumn<?, String> numberKolonne;
 
     @FXML
-    private TableColumn<?, ?> songKolonne;
+    private TableColumn<?, String> songKolonne;
 
-    @FXML
-    private TableColumn<Playlist, String> timeKolonne;
+    private ObservableList<Playlist> observablePlaylist = FXCollections.observableArrayList();
 
     public void initialize () {
+        nameKolonne.setCellValueFactory(new PropertyValueFactory<Playlist, String>("name"));
+        songsKolonne.setCellValueFactory(new PropertyValueFactory<Playlist, String>("songs"));
+        timeKolonne.setCellValueFactory(new PropertyValueFactory<Playlist, String>("time"));
+        //numberKolonne.setCellValueFactory(new PropertyValueFactory<Sang, String>("number"));
+        //songKolonne.setCellValueFactory(new PropertyValueFactory<Sang, String>("song"));
+
+
+        Playlist p1 = new Playlist("Erik", 1, 30);
+        p1.tilføjSange(new Sang("Erik", "Erik", 30, "self made", "SEA"));
+
+        observablePlaylist.add(p1);
+
         playlists.setItems(observablePlaylist);
     }
 
@@ -56,11 +71,12 @@ public class myTunesController {
 
     @FXML //Lav i controller
     void deletePlaylist(ActionEvent event) {
-        Playlist playlistValgt = playlists.getSelectionModel().getSelectedItem();
-        if (playlistValgt == null) {
-            return;
+        try {
+            observablePlaylist.remove(playlists.getSelectionModel().getSelectedIndex());
         }
-        observablePlaylist.remove(playlistValgt);
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("listen er tom");
+        }
     }
 
     @FXML //Lav i controller
@@ -108,7 +124,15 @@ public class myTunesController {
 
     @FXML //Lav i controller
     void searchIcon (ActionEvent event){
+        String search = filterSearch.getText();
+        ObservableList<Playlist> finde = FXCollections.observableArrayList();
 
+        for (Playlist p: observablePlaylist) {
+            if (p.getSongs().contains(search)) {
+                finde.add(p);
+            }
+        }
+        playlists.setItems(finde);
     }
 
     @FXML //lav i controller
