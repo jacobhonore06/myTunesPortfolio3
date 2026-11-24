@@ -6,6 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 
 public class myTunesController {
 
@@ -29,7 +32,13 @@ public class myTunesController {
     private TableColumn<Playlist, ?> songsKolonne;
 
     @FXML
-    private ListView<?> songsOnPlaylist;
+    private TableView<Playlist> songsOnPlaylist;
+
+    @FXML
+    private TableColumn<?, ?> numberKolonne;
+
+    @FXML
+    private TableColumn<?, ?> songKolonne;
 
     @FXML
     private TableColumn<Playlist, String> timeKolonne;
@@ -40,7 +49,9 @@ public class myTunesController {
 
     @FXML //Lav som ny klasse + dialog
     void alleSange(ActionEvent event) {
-
+        AlleSange alleSange = new AlleSange();
+        alleSange.opretDialog();
+        
     }
 
     @FXML //Lav i controller
@@ -73,9 +84,19 @@ public class myTunesController {
 
     }
 
+    private MediaPlayer mediaPlayer;
     @FXML //Lav i controller?
     void playSong(ActionEvent event) {
+        try {
+            Media lyd = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
+            mediaPlayer = new MediaPlayer(lyd);
+            mediaPlayer.seek(mediaPlayer.getStartTime());
+            mediaPlayer.play();
 
+            //welcomeText.setText("Afspiller nu :" + mediaPlayer.getMedia().getSource().toString());
+        } catch (Exception e) {
+            System.out.println("Fejl: " + e.getMessage());
+        }
     }
 
     @FXML //Lav i controller?
