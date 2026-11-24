@@ -1,5 +1,6 @@
 package com.example.mytunesportfolio3;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
@@ -22,5 +23,4 @@ public class PlaylistKnap {
 
         newPlaylistDialog.show();
     }
-
 }
