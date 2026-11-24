@@ -1,13 +1,10 @@
 package com.example.mytunesportfolio3;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 public class myTunesController {
@@ -22,7 +19,8 @@ public class myTunesController {
     private Label playingSong;
 
     @FXML
-    private TableView<?> playlists;
+    private TableView<Playlist> playlists;
+    private ObservableList<Playlist> observablePlaylist = FXCollections.observableArrayList();
 
     @FXML
     private ImageView songCover;
@@ -36,6 +34,10 @@ public class myTunesController {
     @FXML
     private TableColumn<Playlist, String> timeKolonne;
 
+    public void initialize () {
+        playlists.setItems(observablePlaylist);
+    }
+
     @FXML //Lav som ny klasse + dialog
     void alleSange(ActionEvent event) {
 
@@ -43,12 +45,17 @@ public class myTunesController {
 
     @FXML //Lav i controller
     void deletePlaylist(ActionEvent event) {
-
+        Playlist playlistValgt = playlists.getSelectionModel().getSelectedItem();
+        if (playlistValgt == null) {
+            return;
+        }
+        observablePlaylist.remove(playlistValgt);
     }
 
     @FXML //Lav i controller
     void deleteSong(ActionEvent event) {
 
+        
     }
 
     @FXML //Lav som ny klasse (PlaylistKnap) m. newPlaylist + dialog
