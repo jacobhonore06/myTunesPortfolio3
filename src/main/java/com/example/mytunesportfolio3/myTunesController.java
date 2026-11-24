@@ -71,12 +71,14 @@ public class myTunesController {
 
     @FXML //Lav som ny klasse (PlaylistKnap) m. newPlaylist + dialog
     void editPlaylist(ActionEvent event) {
-
+        PlaylistKnap playlistKnap = new PlaylistKnap();
+        playlistKnap.editPlaylist();
     }
 
     @FXML //Lav i samme klasse som editPlaylist + dialog
     void newPlaylist(ActionEvent event) {
-
+        PlaylistKnap playlistKnap = new PlaylistKnap();
+        playlistKnap.newPlaylist();
     }
 
     @FXML //Lav i controller?
