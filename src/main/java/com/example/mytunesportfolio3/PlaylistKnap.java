@@ -1,5 +1,6 @@
 package com.example.mytunesportfolio3;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -10,7 +11,13 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.Optional;
 
-public class PlaylistKnap extends myTunesController{
+public class PlaylistKnap {   // ingen extends!
+
+    private ObservableList<Playlist> liste;
+
+    public PlaylistKnap(ObservableList<Playlist> liste) {
+        this.liste = liste;
+    }
 
     public void editPlaylist() {
         Dialog<ButtonType> editPlaylistDialog = new Dialog<>();
@@ -37,8 +44,6 @@ public class PlaylistKnap extends myTunesController{
 
         newPlaylistDialog.getDialogPane().setContent(new VBox(10, playlist, info));
 
-        Optional <ButtonType> knap = newPlaylistDialog.showAndWait();
-
         Button applyButton = (Button) newPlaylistDialog.getDialogPane().lookupButton(ButtonType.APPLY);
         applyButton.addEventFilter(javafx.event.ActionEvent.ACTION, event -> {
             if (playlistName.getText().trim().isEmpty()) {
@@ -49,14 +54,11 @@ public class PlaylistKnap extends myTunesController{
             }
         });
 
+        Optional <ButtonType> knap = newPlaylistDialog.showAndWait();
+
         if (knap.isPresent() && knap.get() == ButtonType.APPLY) {
-                Playlist newPlaylist = new Playlist(
-                        playlistName.getText(),
-                        0,0
-                );
-                observablePlaylist.add(newPlaylist);
-                playlists.setItems(observablePlaylist);
-                playlists.sort();
+                liste.add(new Playlist(playlistName.getText(), 0,0));
+
         }
 
         newPlaylistDialog.showAndWait();

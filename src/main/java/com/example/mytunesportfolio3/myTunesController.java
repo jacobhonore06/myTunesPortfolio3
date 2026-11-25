@@ -13,7 +13,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 
-public abstract class myTunesController {
+public class myTunesController {
 
     @FXML
     private TextField filterSearch;
@@ -45,7 +45,7 @@ public abstract class myTunesController {
     @FXML
     private TableColumn<?, String> songKolonne;
 
-    AlleSange alleSange = new AlleSange();
+    AlleSange alleSange;
 
     public ObservableList<Playlist> observablePlaylist = FXCollections.observableArrayList();
 
@@ -64,6 +64,7 @@ public abstract class myTunesController {
 
         playlists.setItems(observablePlaylist);
 
+        alleSange = new AlleSange();
         //alleSange.indlaesMappe("C:\\Desktop\\Proggramering\\musik");
         alleSange.indlaesMappe("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
     }
@@ -106,13 +107,13 @@ public abstract class myTunesController {
 
     @FXML //Lav som ny klasse (PlaylistKnap) m. newPlaylist + dialog
     void editPlaylist(ActionEvent event) {
-        PlaylistKnap playlistKnap = new PlaylistKnap();
+        PlaylistKnap playlistKnap = new PlaylistKnap(observablePlaylist);
         playlistKnap.editPlaylist();
     }
 
     @FXML //Lav i samme klasse som editPlaylist + dialog
     void newPlaylist(ActionEvent event) {
-        PlaylistKnap playlistKnap = new PlaylistKnap();
+        PlaylistKnap playlistKnap = new PlaylistKnap(observablePlaylist);
         playlistKnap.newPlaylist();
 
     }

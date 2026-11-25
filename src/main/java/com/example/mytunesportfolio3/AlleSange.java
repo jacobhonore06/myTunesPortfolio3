@@ -21,7 +21,7 @@ Denne klasse indeholder et dialogvindue, hvor alle sange bliver vist, og der er 
 Vi laver koden til dette dialogvindue i denne klasse, for at have et bedre overblik i controlleren.
  */
 
-public class AlleSange extends myTunesController{
+public class AlleSange {
 
     private ObservableList<Sang> sangeListe = FXCollections.observableArrayList();
     private ArrayList<MediaPlayer> players = new ArrayList<>();
@@ -139,7 +139,7 @@ public class AlleSange extends myTunesController{
         TextField fileName = new TextField();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Sounds", "*.mp3" + ".wav"));
+                new FileChooser.ExtensionFilter("Sounds", "*.mp3" + "*.wav"));
         //File startmappe = new File("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
         File startmappe = new File("C:\\Desktop\\Proggramering\\musik");
         if (startmappe.exists()) {
@@ -147,7 +147,7 @@ public class AlleSange extends myTunesController{
         }
         Button addSong = new Button("Add songs");
         addSong.setOnAction(event1 -> {
-            File fil = (File) fileChooser.showOpenMultipleDialog(addSong.getScene().getWindow());
+            File fil = fileChooser.showOpenDialog(addSong.getScene().getWindow());
             if (fil != null) {
                 valgt = fil;
                 addSong.setText(fil.getName());
@@ -157,7 +157,7 @@ public class AlleSange extends myTunesController{
 
         newSongDialog.getDialogPane().setContent(new VBox(10, h1, h2, h3, h4, h5));
 
-        Optional<ButtonType> knap = newSongDialog.showAndWait();
+        /*Optional<ButtonType> knap = newSongDialog.showAndWait();
 
         if (knap.isPresent() && knap.get() == ButtonType.OK) {
             try {
@@ -182,7 +182,7 @@ public class AlleSange extends myTunesController{
             } catch (NumberFormatException e) {
                 System.out.println("udfyld alt, kig på int og String!!!");
             }
-        }
+        }*/
     }
 }
 
