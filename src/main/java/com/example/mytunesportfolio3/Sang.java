@@ -31,7 +31,10 @@ public class Sang {
     }
 
     public String getSongDuration () {
-        return String.valueOf(songDuration);
+        int timer = songDuration / 3600;
+        int minutter = (songDuration % 3600) / 60;
+        int sekunder = songDuration % 60;
+        return String.format("%d:%02d:%02d", timer, minutter, sekunder);
     }
     public void setSongDuration (int sd) {
         this.songDuration = sd;

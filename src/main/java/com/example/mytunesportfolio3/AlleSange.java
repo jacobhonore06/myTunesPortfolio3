@@ -50,6 +50,7 @@ public class AlleSange {
             mp.setOnReady(() -> {
                 sang.setSongDuration((int) mp.getMedia().getDuration().toSeconds());
                 sangeListe.set(sangeListe.indexOf(sang), sang);
+
             });
         }
     }

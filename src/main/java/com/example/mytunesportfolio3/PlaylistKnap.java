@@ -58,10 +58,7 @@ public class PlaylistKnap {   // ingen extends!
 
         if (knap.isPresent() && knap.get() == ButtonType.APPLY) {
                 liste.add(new Playlist(playlistName.getText(), 0,0));
-
         }
-
-        newPlaylistDialog.showAndWait();
     }
 
 }
