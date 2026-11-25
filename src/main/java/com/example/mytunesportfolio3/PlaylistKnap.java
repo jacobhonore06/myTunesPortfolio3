@@ -10,8 +10,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.Optional;
 
-public class PlaylistKnap {
-    myTunesController mtc = new myTunesController();
+public class PlaylistKnap extends myTunesController{
 
     public void editPlaylist() {
         Dialog<ButtonType> editPlaylistDialog = new Dialog<>();
@@ -55,9 +54,9 @@ public class PlaylistKnap {
                         playlistName.getText(),
                         0,0
                 );
-                mtc.observablePlaylist.add(newPlaylist);
-                mtc.playlists.setItems(mtc.observablePlaylist);
-                mtc.playlists.sort();
+                observablePlaylist.add(newPlaylist);
+                playlists.setItems(observablePlaylist);
+                playlists.sort();
         }
 
         newPlaylistDialog.showAndWait();

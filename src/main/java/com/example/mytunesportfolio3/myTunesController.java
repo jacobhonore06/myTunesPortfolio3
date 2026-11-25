@@ -13,7 +13,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 
-public class myTunesController {
+public abstract class myTunesController {
 
     @FXML
     private TextField filterSearch;
