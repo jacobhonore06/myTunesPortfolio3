@@ -1,5 +1,6 @@
 package com.example.mytunesportfolio3;
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.util.Optional;
 
 public class PlaylistKnap {
+    myTunesController mtc = new myTunesController();
 
     public void editPlaylist() {
         Dialog<ButtonType> editPlaylistDialog = new Dialog<>();
@@ -36,16 +38,29 @@ public class PlaylistKnap {
 
         newPlaylistDialog.getDialogPane().setContent(new VBox(10, playlist, info));
 
-        Optional<ButtonType> knap = newPlaylistDialog.showAndWait();
+        Optional <ButtonType> knap = newPlaylistDialog.showAndWait();
 
-        while (knap.isPresent() && knap.get() == ButtonType.APPLY && playlistName.getText().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING,"Playlist should have a name").showAndWait();
-            newPlaylistDialog.showAndWait();
-        }
+        Button applyButton = (Button) newPlaylistDialog.getDialogPane().lookupButton(ButtonType.APPLY);
+        applyButton.addEventFilter(javafx.event.ActionEvent.ACTION, event -> {
+            if (playlistName.getText().trim().isEmpty()) {
+                new Alert(Alert.AlertType.WARNING,
+                        "The playlist should have a name!",
+                        ButtonType.OK).showAndWait();
+                event.consume(); // block the APPLY action, dialog stays open
+            }
+        });
 
         if (knap.isPresent() && knap.get() == ButtonType.APPLY) {
-            String navn = playlistName.getText();
+                Playlist newPlaylist = new Playlist(
+                        playlistName.getText(),
+                        0,0
+                );
+                mtc.observablePlaylist.add(newPlaylist);
+                mtc.playlists.setItems(mtc.observablePlaylist);
+                mtc.playlists.sort();
         }
+
+        newPlaylistDialog.showAndWait();
     }
 
 }

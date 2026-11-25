@@ -22,7 +22,7 @@ public class myTunesController {
     private Label playingSong;
 
     @FXML
-    private TableView<Playlist> playlists;
+    public TableView<Playlist> playlists;
 
     @FXML
     private TableColumn<Playlist, String> nameKolonne;
@@ -47,7 +47,7 @@ public class myTunesController {
 
     AlleSange alleSange = new AlleSange();
 
-    private ObservableList<Playlist> observablePlaylist = FXCollections.observableArrayList();
+    public ObservableList<Playlist> observablePlaylist = FXCollections.observableArrayList();
 
     public void initialize () {
         nameKolonne.setCellValueFactory(new PropertyValueFactory<Playlist, String>("name"));
@@ -114,6 +114,7 @@ public class myTunesController {
     void newPlaylist(ActionEvent event) {
         PlaylistKnap playlistKnap = new PlaylistKnap();
         playlistKnap.newPlaylist();
+
     }
 
     @FXML //Lav i controller?
@@ -129,7 +130,6 @@ public class myTunesController {
             mediaPlayer = new MediaPlayer(lyd);
             mediaPlayer.seek(mediaPlayer.getStartTime());
             mediaPlayer.play();
-
             //welcomeText.setText("Afspiller nu :" + mediaPlayer.getMedia().getSource().toString());
         } catch (Exception e) {
             System.out.println("Fejl: " + e.getMessage());
