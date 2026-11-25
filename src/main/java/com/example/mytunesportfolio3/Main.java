@@ -24,5 +24,7 @@ public class Main extends Application {
         System.out.println("Tak for i dag");
         //ok
 
+
+        //hvis nok tid slider og musikvisuliser
     }
 }
