@@ -36,14 +36,14 @@ public class PlaylistKnap {
         FileChooser filechooser = new FileChooser();
         filechooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Billeder", "*.mp3"));
-        File startmappe = new File("src/main/resources/com/example/mytunesportfolio3");
+        File startmappe = new File("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
         if (startmappe.exists()) {
             filechooser.setInitialDirectory(startmappe);
         }
 
         Button addSong = new Button("Add songs");
         addSong.setOnAction(event1 -> {
-            File fil = filechooser.showOpenDialog(addSong.getScene().getWindow());
+            File fil = (File) filechooser.showOpenMultipleDialog(addSong.getScene().getWindow());
             if (fil != null) {
                 valgt = fil;
                 addSong.setText(fil.getName());
