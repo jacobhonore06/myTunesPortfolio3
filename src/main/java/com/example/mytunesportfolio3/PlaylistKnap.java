@@ -28,15 +28,17 @@ public class PlaylistKnap {
         newPlaylistDialog.getDialogPane().getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CLOSE);
 
         Label playlistLabel = new Label("Playlistnavn:");
+        Label info = new Label("Add songs to playlist in all songs");
         TextField playlistName = new TextField();
 
         HBox playlist = new HBox(5, playlistLabel, playlistName);
         playlist.setAlignment(Pos.CENTER);
 
-        FileChooser filechooser = new FileChooser();
+        /*FileChooser filechooser = new FileChooser();
         filechooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Billeder", "*.mp3"));
         File startmappe = new File("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
+        //File startmappe = new File("C:\\Desktop\\Proggramering\\musik");
         if (startmappe.exists()) {
             filechooser.setInitialDirectory(startmappe);
         }
@@ -48,20 +50,20 @@ public class PlaylistKnap {
                 valgt = fil;
                 addSong.setText(fil.getName());
             }
-        });
+        });*/
 
-        newPlaylistDialog.getDialogPane().setContent(new VBox(10, playlist, addSong));
+        newPlaylistDialog.getDialogPane().setContent(new VBox(10, playlist, info));
 
         Optional<ButtonType> knap = newPlaylistDialog.showAndWait();
 
+        while (knap.isPresent() && knap.get() == ButtonType.APPLY && playlistName.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING,"Playlist should have a name").showAndWait();
+            newPlaylistDialog.showAndWait();
+        }
+
         if (knap.isPresent() && knap.get() == ButtonType.APPLY) {
             String navn = playlistName.getText();
-            if (navn.isEmpty()) {
-                new Alert(Alert.AlertType.WARNING,"Playlist should have a name").showAndWait();
-            }
-            return;
         }
-        newPlaylistDialog.show();
     }
 
 }

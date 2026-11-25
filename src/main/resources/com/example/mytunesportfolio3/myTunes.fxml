@@ -61,13 +61,13 @@
                   <Insets left="25.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <Button mnemonicParsing="false" onAction="#newPlaylist" text="New" />
-                  <Button mnemonicParsing="false" onAction="#editPlaylist" text="Edit">
+                  <Button mnemonicParsing="false" onAction="#newPlaylist" text="New playlist" />
+                  <Button mnemonicParsing="false" onAction="#editPlaylist" text="Edit playlist">
                      <HBox.margin>
-                        <Insets left="85.0" right="85.0" />
+                        <Insets left="35.0" right="35.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deletePlaylist" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#deletePlaylist" text="Delete playlist" />
                </children>
             </HBox>
          </children>

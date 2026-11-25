@@ -64,7 +64,8 @@ public class myTunesController {
 
         playlists.setItems(observablePlaylist);
 
-        alleSange.indlaesMappe("C:\\Desktop\\Proggramering\\musik");
+        //alleSange.indlaesMappe("C:\\Desktop\\Proggramering\\musik");
+        alleSange.indlaesMappe("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
     }
 
     @FXML //Lav som ny klasse + dialog
@@ -82,7 +83,7 @@ public class myTunesController {
         deletePlaylistDialog.setHeaderText("Delete?");
         deletePlaylistDialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
 
-        Button deletePlaylisten = new Button("Delete");
+        Button deletePlaylisten = new Button("Delete playlist");
         deletePlaylisten.setOnAction(event -> {
             try {
                 observablePlaylist.remove(playlists.getSelectionModel().getSelectedIndex());

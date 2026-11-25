@@ -23,5 +23,6 @@ public class Main extends Application {
     public void stop() throws IOException {
         System.out.println("Tak for i dag");
         //ok
+
     }
 }
