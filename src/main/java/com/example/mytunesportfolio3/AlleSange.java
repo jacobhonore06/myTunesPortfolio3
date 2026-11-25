@@ -1,9 +1,17 @@
 package com.example.mytunesportfolio3;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
+import java.util.ArrayList;
 
 
 /*
@@ -12,6 +20,37 @@ Vi laver koden til dette dialogvindue i denne klasse, for at have et bedre overb
  */
 
 public class AlleSange {
+
+    private ObservableList<Sang> sangeListe = FXCollections.observableArrayList();
+    private ArrayList<MediaPlayer> players = new ArrayList<>();
+
+    public void indlaesMappe(String mappeSti) {
+
+        File mappe = new File(mappeSti);
+        File[] filer = mappe.listFiles(
+                (m, navn) -> navn.toLowerCase().endsWith(".mp3")
+                        || navn.toLowerCase().endsWith(".wav"));
+
+        if (filer == null) {
+            System.out.println("Mappen findes ikke: " + mappeSti);
+            return;
+        }
+
+        for (File fil : filer) {
+            String titel = fil.getName().replaceFirst("\\.[^.]+$", "");
+            Sang sang = new Sang(titel, "Ukendt", 0, "Ukendt", "Ukendt");
+            sang.setFil(fil.toURI().toString());
+            sangeListe.add(sang);
+
+
+            MediaPlayer mp = new MediaPlayer(new Media(sang.getFil()));
+            players.add(mp);
+            mp.setOnReady(() -> {
+                sang.setSongDuration((int) mp.getMedia().getDuration().toSeconds());
+                sangeListe.set(sangeListe.indexOf(sang), sang);
+            });
+        }
+    }
 
     public void opretDialog() {
         Dialog<ButtonType> dialogVindue = new Dialog<>();
@@ -33,15 +72,22 @@ public class AlleSange {
             editSongDialog();
         });
 
-        TableView <AlleSange> alleSange = new TableView<>();
-        TableColumn<AlleSange, String> TitleColumn = new TableColumn<>("Title");
-        TableColumn<AlleSange, String> ArtistColumn = new TableColumn<>("Artist");
-        TableColumn<AlleSange, String> DurationColumn = new TableColumn<>("Duration");
-        TableColumn<AlleSange, String> GenreColumn = new TableColumn<>("Genre");
-        TableColumn<AlleSange, String> AlbumColumn = new TableColumn<>("Album");
+        TableView <Sang> alleSange = new TableView<>();
+        TableColumn<Sang, String> TitleColumn = new TableColumn<>("Title");
+        TableColumn<Sang, String> ArtistColumn = new TableColumn<>("Artist");
+        TableColumn<Sang, String> DurationColumn = new TableColumn<>("Duration");
+        TableColumn<Sang, String> GenreColumn = new TableColumn<>("Genre");
+        TableColumn<Sang, String> AlbumColumn = new TableColumn<>("Album");
+
+        TitleColumn.setCellValueFactory(new PropertyValueFactory<>("songTitle"));
+        ArtistColumn.setCellValueFactory(new PropertyValueFactory<>("songArtist"));
+        DurationColumn.setCellValueFactory(new PropertyValueFactory<>("songDuration"));
+        GenreColumn.setCellValueFactory(new PropertyValueFactory<>("songGenre"));
+        AlbumColumn.setCellValueFactory(new PropertyValueFactory<>("songAlbum"));
 
         alleSange.getColumns().addAll(TitleColumn, ArtistColumn, DurationColumn, GenreColumn, AlbumColumn);
 
+        alleSange.setItems(sangeListe);
 
         HBox hBox = new HBox(10, alleSangeSøg, søgKnap);
         hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -70,7 +116,6 @@ public class AlleSange {
 
         newSongDialog.show();
     }
-
 }
 
 

@@ -45,6 +45,8 @@ public class myTunesController {
     @FXML
     private TableColumn<?, String> songKolonne;
 
+    AlleSange alleSange = new AlleSange();
+
     private ObservableList<Playlist> observablePlaylist = FXCollections.observableArrayList();
 
     public void initialize () {
@@ -61,13 +63,13 @@ public class myTunesController {
         observablePlaylist.add(p1);
 
         playlists.setItems(observablePlaylist);
+
+        alleSange.indlaesMappe("C:\\Desktop\\Proggramering\\musik");
     }
 
     @FXML //Lav som ny klasse + dialog
     void alleSange(ActionEvent event) {
-        AlleSange alleSange = new AlleSange();
         alleSange.opretDialog();
-        
     }
 
     @FXML //Lav i controller

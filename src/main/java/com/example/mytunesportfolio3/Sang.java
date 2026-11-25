@@ -6,6 +6,7 @@ public class Sang {
     private int songDuration;
     private String songGenre;
     private String songAlbum;
+    private String fil;
 
     public Sang (String songTitle1, String songArtist1, int songDuration1, String songGenre1, String songAlbum1) {
         this.songTitle = songTitle1;
@@ -50,5 +51,10 @@ public class Sang {
         this.songAlbum = s;
     }
 
-
+    public String getFil() {
+        return fil;
+    }
+    public void setFil(String f) {
+        this.fil = f;
+    }
 }
