@@ -143,15 +143,19 @@ public class myTunesController {
 
     @FXML //Lav i controller
     void searchIcon (ActionEvent event){
-        String search = filterSearch.getText();
-        ObservableList<Playlist> finde = FXCollections.observableArrayList();
+        if (filterSearch != null) {
+            String search = filterSearch.getText();
+            ObservableList<Playlist> finde = FXCollections.observableArrayList();
 
-        for (Playlist p: observablePlaylist) {
-            if (p.getSongs().contains(search)) {
-                finde.add(p);
+            for (Playlist p : observablePlaylist) {
+                if (p.getSongs().contains(search)) {
+                    finde.add(p);
+                }
             }
+            playlists.setItems(finde);
+        } else {
+            playlists.setItems(observablePlaylist);
         }
-        playlists.setItems(finde);
     }
 
     @FXML //lav i controller

@@ -34,24 +34,6 @@ public class PlaylistKnap {
         HBox playlist = new HBox(5, playlistLabel, playlistName);
         playlist.setAlignment(Pos.CENTER);
 
-        /*FileChooser filechooser = new FileChooser();
-        filechooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Billeder", "*.mp3"));
-        File startmappe = new File("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
-        //File startmappe = new File("C:\\Desktop\\Proggramering\\musik");
-        if (startmappe.exists()) {
-            filechooser.setInitialDirectory(startmappe);
-        }
-
-        Button addSong = new Button("Add songs");
-        addSong.setOnAction(event1 -> {
-            File fil = (File) filechooser.showOpenMultipleDialog(addSong.getScene().getWindow());
-            if (fil != null) {
-                valgt = fil;
-                addSong.setText(fil.getName());
-            }
-        });*/
-
         newPlaylistDialog.getDialogPane().setContent(new VBox(10, playlist, info));
 
         Optional<ButtonType> knap = newPlaylistDialog.showAndWait();
