@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ Vi laver koden til dette dialogvindue i denne klasse, for at have et bedre overb
  */
 
 public class AlleSange {
+
+    SangeKnapper sk = new SangeKnapper();
 
     private ObservableList<Sang> sangeListe = FXCollections.observableArrayList();
     private ArrayList<MediaPlayer> players = new ArrayList<>();
@@ -65,11 +68,11 @@ public class AlleSange {
         Button deleteSang = new Button("Delete");
 
         newSong.setOnAction(event -> {
-            newSongDialog();
+            sk.newSongDialog();
         });
 
         editSong.setOnAction(event -> {
-            editSongDialog();
+            sk.editSongDialog();
         });
 
         TableView <Sang> alleSange = new TableView<>();
@@ -97,43 +100,6 @@ public class AlleSange {
 
         dialogVindue.getDialogPane().setContent(new VBox(10, hBox, alleSange, hBoxKnapper));
         dialogVindue.show();
-    }
-
-    public void editSongDialog () {
-        Dialog<ButtonType> editSongDialog = new Dialog<>();
-        editSongDialog.setTitle("Edit song");
-        editSongDialog.setHeaderText("Edit song");
-        editSongDialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
-
-        editSongDialog.show();
-    }
-
-    public void newSongDialog () {
-        Dialog<ButtonType> newSongDialog = new Dialog<>();
-        newSongDialog.setTitle("New song");
-        newSongDialog.setHeaderText("New song");
-        newSongDialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
-
-        /*FileChooser filechooser = new FileChooser();
-        filechooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Billeder", "*.mp3"));
-        File startmappe = new File("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
-        //File startmappe = new File("C:\\Desktop\\Proggramering\\musik");
-        if (startmappe.exists()) {
-            filechooser.setInitialDirectory(startmappe);
-        }
-
-        Button addSong = new Button("Add songs");
-        addSong.setOnAction(event1 -> {
-            File fil = (File) filechooser.showOpenMultipleDialog(addSong.getScene().getWindow());
-            if (fil != null) {
-                valgt = fil;
-                addSong.setText(fil.getName());
-            }
-        });*/
-
-
-        newSongDialog.show();
     }
 }
 
