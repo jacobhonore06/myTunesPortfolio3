@@ -25,6 +25,11 @@ public class AlleSange {
 
     private ObservableList<Sang> sangeListe = FXCollections.observableArrayList();
     private ArrayList<MediaPlayer> players = new ArrayList<>();
+    private ObservableList<Playlist> playlister;
+
+    public void setPlaylister(ObservableList<Playlist> playlister) {
+        this.playlister = playlister;
+    }
 
     public void indlaesMappe(String mappeSti) {
 
@@ -59,23 +64,15 @@ public class AlleSange {
         Dialog<ButtonType> dialogVindue = new Dialog<>();
         dialogVindue.setTitle("Alle sange");
         dialogVindue.setHeaderText("Alle sange");
-        dialogVindue.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+        dialogVindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         TextField alleSangeSøg = new TextField();
         Button søgKnap = new Button("Søg");
         Button newSong = new Button("New");
-        Button editSong = new Button("Edit");
+        Button editSong = new Button("add to playlist");
         Button deleteSang = new Button("Delete");
 
-        newSong.setOnAction(event -> {
-            newSongDialog();
-        });
-
-        editSong.setOnAction(event -> {
-            editSongDialog();
-        });
-
-        TableView <Sang> alleSange = new TableView<>();
+        TableView<Sang> alleSange = new TableView<>();
         TableColumn<Sang, String> TitleColumn = new TableColumn<>("Title");
         TableColumn<Sang, String> ArtistColumn = new TableColumn<>("Artist");
         TableColumn<Sang, String> DurationColumn = new TableColumn<>("Duration");
@@ -92,6 +89,16 @@ public class AlleSange {
 
         alleSange.setItems(sangeListe);
 
+        newSong.setOnAction(event -> {
+            newSongDialog();
+        });
+
+        editSong.setOnAction(event -> {
+            Sang valgtSang = alleSange.getSelectionModel().getSelectedItem();
+            if (valgtSang == null) return;   // ingen sang valgt
+            addSongDialog(valgtSang);
+        });
+
         HBox hBox = new HBox(10, alleSangeSøg, søgKnap);
         hBox.setAlignment(Pos.CENTER_RIGHT);
 
@@ -102,13 +109,23 @@ public class AlleSange {
         dialogVindue.show();
     }
 
-    public void editSongDialog () {
+    public void addSongDialog(Sang sang) {
         Dialog<ButtonType> editSongDialog = new Dialog<>();
-        editSongDialog.setTitle("Edit song");
-        editSongDialog.setHeaderText("Edit song");
+        editSongDialog.setTitle("Add song");
+        editSongDialog.setHeaderText("Add song");
         editSongDialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
 
-        editSongDialog.show();
+        ComboBox<Playlist> valg = new ComboBox<>(playlister);
+        valg.setPromptText("Vælg playliste");
+        editSongDialog.getDialogPane().setContent(new VBox(10, valg));
+
+        Optional<ButtonType> svar = editSongDialog.showAndWait();
+        if (svar.isPresent() && svar.get() == ButtonType.OK) {
+            Playlist p = valg.getValue();
+            if (p != null) {
+                p.tilføjSongs(sang);
+            }
+        }
     }
 
     private File valgt;
@@ -139,8 +156,7 @@ public class AlleSange {
         Label labelFile = new Label("File: ");
         TextField fileName = new TextField();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Sounds", "*.mp3", "*.wav"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sounds", "*.mp3", "*.wav"));
         //File startmappe = new File("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
         File startmappe = new File("C:\\Desktop\\Proggramering\\musik");
         if (startmappe.exists()) {
@@ -182,5 +198,3 @@ public class AlleSange {
         }
     }
 }
-
-

@@ -132,7 +132,7 @@ public class myTunesController {
 
 
     @FXML
-    private TableView<Playlist> songsOnPlaylist;
+    private TableView<Sang> songsOnPlaylist;
 
     @FXML
     private TableColumn<Sang, String> numberKolonne;
@@ -171,7 +171,14 @@ public class myTunesController {
         observablePlaylist.add(p1);
         playlists.setItems(observablePlaylist);
 
+        playlists.getSelectionModel().selectedItemProperty().addListener((obs, gammel, ny) -> {
+            if (ny != null) {
+                songsOnPlaylist.setItems(ny.getSangeListe());
+            }
+        });
+
         alleSange = new AlleSange();
+        alleSange.setPlaylister(observablePlaylist);
         alleSange.indlaesMappe("C:\\Desktop\\Proggramering\\musik");
         //alleSange.indlaesMappe("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
     }
