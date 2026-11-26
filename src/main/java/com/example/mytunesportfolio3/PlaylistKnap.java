@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.util.Optional;
 
-public class PlaylistKnap {   // ingen extends!
+public class PlaylistKnap {
 
     private ObservableList<Playlist> liste;
     private Playlist pl;
@@ -39,7 +39,7 @@ public class PlaylistKnap {   // ingen extends!
 
         if (knap.isPresent() && knap.get() == ButtonType.OK) {
             pl.setName(navnefelt.getText());
-            liste.set(liste.indexOf(pl), pl);     // samme formål som minTabel.refresh() hos dig
+            liste.set(liste.indexOf(pl), pl);
         }
     }
 
@@ -65,7 +65,7 @@ public class PlaylistKnap {   // ingen extends!
                 new Alert(Alert.AlertType.WARNING,
                         "The playlist should have a name!",
                         ButtonType.OK).showAndWait();
-                event.consume(); // block the APPLY action, dialog stays open
+                event.consume();
             }
         });
 
@@ -75,5 +75,4 @@ public class PlaylistKnap {   // ingen extends!
                 liste.add(new Playlist(playlistName.getText(), 0,0));
         }
     }
-
 }
