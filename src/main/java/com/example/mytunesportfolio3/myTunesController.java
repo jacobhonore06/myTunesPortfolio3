@@ -57,6 +57,9 @@ public class myTunesController {
 
     }
 
+    @FXML
+    private Slider volumeSlider;
+
 
     @FXML
     public TableView<Playlist> playlists;
@@ -197,5 +200,17 @@ public class myTunesController {
         alleSange.setPlaylister(observablePlaylist);
         alleSange.indlaesMappe("C:\\Desktop\\Proggramering\\musik");
         //alleSange.indlaesMappe("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
+
+        volumeSlider.setMin(0);
+        volumeSlider.setMax(100);
+        volumeSlider.setValue(100);
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.setVolume(newValue.doubleValue() / 100);
+            }
+        });
+
+
     }
 }
