@@ -92,10 +92,11 @@ public class myTunesController {
             catch (IndexOutOfBoundsException e) {
                 System.out.println("listen er tom");
             }
+            deletePlaylistDialog.close();
         });
 
         deletePlaylistDialog.getDialogPane().setContent(new VBox(10, deletePlaylisten));
-        deletePlaylistDialog.show();
+        deletePlaylistDialog.showAndWait();
     }
 
 
@@ -107,7 +108,10 @@ public class myTunesController {
 
     @FXML //Lav som ny klasse (PlaylistKnap) m. newPlaylist + dialog
     void editPlaylist(ActionEvent event) {
-        PlaylistKnap playlistKnap = new PlaylistKnap(observablePlaylist);
+        Playlist valgt = playlists.getSelectionModel().getSelectedItem();
+        if (valgt == null) return;
+
+        PlaylistKnap playlistKnap = new PlaylistKnap(observablePlaylist, valgt);
         playlistKnap.editPlaylist();
     }
 

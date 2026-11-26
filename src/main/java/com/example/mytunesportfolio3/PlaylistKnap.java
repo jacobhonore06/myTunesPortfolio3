@@ -1,12 +1,10 @@
 package com.example.mytunesportfolio3;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.util.Optional;
@@ -14,18 +12,35 @@ import java.util.Optional;
 public class PlaylistKnap {   // ingen extends!
 
     private ObservableList<Playlist> liste;
+    private Playlist pl;
+
 
     public PlaylistKnap(ObservableList<Playlist> liste) {
         this.liste = liste;
     }
 
-    public void editPlaylist() {
-        Dialog<ButtonType> editPlaylistDialog = new Dialog<>();
-        editPlaylistDialog.setTitle("Edit playlist");
-        editPlaylistDialog.setHeaderText("Edit playlist");
-        editPlaylistDialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+    public PlaylistKnap(ObservableList<Playlist> liste, Playlist pl) {
+        this.liste = liste;
+        this.pl=pl;
 
-        editPlaylistDialog.show();
+    }
+
+    public void editPlaylist() {
+        Dialog<ButtonType> dialogvindue = new Dialog<>();
+        dialogvindue.setTitle("Edit playlist");
+        dialogvindue.setHeaderText("Edit playlist");
+        dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        TextField navnefelt = new TextField(pl.getName());
+
+        dialogvindue.getDialogPane().setContent(new VBox(10, navnefelt));
+
+        Optional<ButtonType> knap = dialogvindue.showAndWait();
+
+        if (knap.isPresent() && knap.get() == ButtonType.OK) {
+            pl.setName(navnefelt.getText());
+            liste.set(liste.indexOf(pl), pl);     // samme formål som minTabel.refresh() hos dig
+        }
     }
 
     private File valgt;
