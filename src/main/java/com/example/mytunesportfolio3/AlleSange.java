@@ -23,7 +23,7 @@ Vi laver koden til dette dialogvindue i denne klasse, for at have et bedre overb
 
 public class AlleSange {
 
-    private ObservableList<Sang> sangeListe = FXCollections.observableArrayList();
+    public ObservableList<Sang> sangeListe = FXCollections.observableArrayList();
     private ArrayList<MediaPlayer> players = new ArrayList<>();
     private ObservableList<Playlist> playlister;
 
@@ -89,13 +89,31 @@ public class AlleSange {
 
         alleSange.setItems(sangeListe);
 
+        deleteSang.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "You cant undo this decision, do you understand that?!?",
+                    ButtonType.YES, ButtonType.CANCEL);
+            event.consume();
+
+            Optional<ButtonType> svar = alert.showAndWait();
+
+            if (svar.isPresent() && svar.get() == ButtonType.YES) {
+                try {
+                    sangeListe.remove(alleSange.getSelectionModel().getSelectedIndex());
+                }
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println("listen er tom");
+                }
+            }
+        });
+
         newSong.setOnAction(event -> {
             newSongDialog();
         });
 
         editSong.setOnAction(event -> {
             Sang valgtSang = alleSange.getSelectionModel().getSelectedItem();
-            if (valgtSang == null) return;   // ingen sang valgt
+            if (valgtSang == null) return;
             addSongDialog(valgtSang);
         });
 
@@ -113,7 +131,7 @@ public class AlleSange {
         Dialog<ButtonType> editSongDialog = new Dialog<>();
         editSongDialog.setTitle("Add song");
         editSongDialog.setHeaderText("Add song");
-        editSongDialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+        editSongDialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<Playlist> valg = new ComboBox<>(playlister);
         valg.setPromptText("Vælg playliste");

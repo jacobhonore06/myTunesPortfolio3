@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.util.Optional;
+
 
 public class myTunesController {
 
@@ -150,10 +152,24 @@ public class myTunesController {
 
     }
 
-    @FXML //Lav i controller
+    @FXML
     void deleteSong(ActionEvent event) {
+        Playlist valgtPlaylist = playlists.getSelectionModel().getSelectedItem();
+        Sang valgtSang = songsOnPlaylist.getSelectionModel().getSelectedItem();
 
+        if (valgtPlaylist == null || valgtSang == null) {
+            return;
+        }
 
+        Alert alert = new Alert(Alert.AlertType.WARNING,
+                "You cant undo this decision, do you understand that?!?",
+                ButtonType.YES, ButtonType.CANCEL);
+
+        Optional<ButtonType> svar = alert.showAndWait();
+
+        if (svar.isPresent() && svar.get() == ButtonType.YES) {
+            valgtPlaylist.getSangeListe().remove(valgtSang);
+        }
     }
 
 
