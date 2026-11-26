@@ -140,7 +140,7 @@ public class AlleSange {
         TextField fileName = new TextField();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Sounds", "*.mp3" + "*.wav"));
+                new FileChooser.ExtensionFilter("Sounds", "*.mp3", "*.wav"));
         //File startmappe = new File("/Users/jacobhonore/Library/CloudStorage/OneDrive-SyddanskErhvervsakademi 2/SCO1/Java/JavaFX/musik");
         File startmappe = new File("C:\\Desktop\\Proggramering\\musik");
         if (startmappe.exists()) {
@@ -152,38 +152,34 @@ public class AlleSange {
             if (fil != null) {
                 valgt = fil;
                 addSong.setText(fil.getName());
+                fileName.setText(fil.getName());
             }
         });
         HBox h5 = new HBox(5, labelFile, fileName, addSong);
 
         newSongDialog.getDialogPane().setContent(new VBox(10, h1, h2, h3, h4, h5));
 
-        /*Optional<ButtonType> knap = newSongDialog.showAndWait();
+        Optional<ButtonType> knap = newSongDialog.showAndWait();
 
         if (knap.isPresent() && knap.get() == ButtonType.OK) {
             try {
-                int alder = Integer.parseInt(alderfelt.getText());
-                String klasseNavn = klasseboks.getValue();
+                String titel = song.getText();
+                String kunstner = artist.getText();
+                String kategorie = categoryBoks.getValue();
+                String filen = fileName.getText();
 
-                Person nyPerson = new Person(
-                        klasseNavn,
-                        navnefelt.getText(),
-                        alder,
-                        valgt.getName()
-                );
-
-                observablePlaylist.add(nyPer);
-
-                for (Klasse k : klasseoversigt) {
-                    if (k.getNavn().equals(klasseNavn)) {
-                        k.tilføjKlasse(nyPerson);
-                    }
+                if (titel.isEmpty() || kunstner.isEmpty() || kategorie == null || filen.isEmpty()) {
+                    System.out.println("Du skal udfylde alt");
+                    return;
                 }
-                playlists.sort();
+
+                Sang s = new Sang(song.getText(), artist.getText(), 0, categoryBoks.getValue(), fileName.getText());
+                sangeListe.add(s);
+
             } catch (NumberFormatException e) {
-                System.out.println("udfyld alt, kig på int og String!!!");
+                System.out.println("der gik noget galt");
             }
-        }*/
+        }
     }
 }
 
